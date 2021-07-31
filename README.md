@@ -1,3 +1,3 @@
-Phase 2 Project for Nate, Tara and Eli
+Phase 2 React Project for Eli Robbins, Tara Kelly, and Nathan Huse.
 
-We The Best Music Company
+We The Best Music App
