@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import SpotifyPlayer from 'react-spotify-web-playback'
 
 
