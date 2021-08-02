@@ -13,9 +13,9 @@ export default function Player({ accessToken }) {
         trackArtistColor: '#ccc',
         trackNameColor: '#fff',
       }}
-      initialVolume={1}
-      play={false}
-      showSaveIcon={true}
+    //   initialVolume={1}
+    //   play={false}
+    //   showSaveIcon={true}
 
     />
 }
