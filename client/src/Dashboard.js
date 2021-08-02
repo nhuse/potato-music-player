@@ -15,7 +15,7 @@ export default function Dashboard({ code }) {
                 <PlaylistBar accessToken={accessToken}/>
             </div>
             <div>
-                {/* <Player accessToken={accessToken} /> */}
+                <Player accessToken={accessToken} />
             </div>
         </div>
     )
