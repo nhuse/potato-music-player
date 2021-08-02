@@ -5,6 +5,7 @@ import PlaylistFetch from './PlaylistFetch'
 import './SideBar.css'
 import SideBar from './SideBar'
 import axios from 'axios'
+import Player from './Player'
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code)
@@ -43,6 +44,9 @@ export default function Dashboard({ code }) {
             </aside>
             <div className="playlist-song-container">
                 <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} />
+            </div>
+            <div>
+                <Player accessToken={accessToken}/>
             </div>
         </div>
     )
