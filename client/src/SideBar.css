@@ -1,0 +1,16 @@
+.side-bar {
+    display: inline-block;
+    vertical-align: top;
+    width: 20%;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: rgba(255,255,255,.87);
+    overflow: auto;
+}
+
+.genre-wrapper {
+    height: 100%;
+    padding-left: 15px;
+    margin-left: 5px;
+    border-radius: 4px;
+}
