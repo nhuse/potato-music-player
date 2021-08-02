@@ -16,7 +16,7 @@ body {
   height: 100%;
 }
 
-.playlist-container {
+.playlist-song-container {
   display: inline-block;
   vertical-align: top;
   width: 80%;

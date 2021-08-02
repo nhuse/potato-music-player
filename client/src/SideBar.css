@@ -1,4 +1,5 @@
 .side-bar {
+    justify-items: center;
     display: inline-block;
     vertical-align: top;
     width: 20%;
@@ -10,7 +11,11 @@
 
 .genre-wrapper {
     height: 100%;
+    right: auto;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
     padding-left: 15px;
-    margin-left: 5px;
     border-radius: 4px;
 }
