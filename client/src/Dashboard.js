@@ -66,7 +66,8 @@ export default function Dashboard({ code }) {
     return (
         <div className="dashboard">
             <header className="header">
-                {/* SearchBar Component + logo */}
+                {/* Eli searchbar maybe also add potato logo*/}
+                <SearchBar accessToken={accessToken} search={search} setSearch={setSearch} searchResponse={searchResponse} setSearchResponse={setSearchResponse} /> 
             </header>
             <aside className="side-bar">
                 <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} />
