@@ -19,7 +19,7 @@ export default function useAuth(code) {
         })
         .catch((error) => {
             console.log(error)
-            // window.location = '/'
+            window.location = '/'
         })
     }, [code])
 
@@ -35,7 +35,7 @@ export default function useAuth(code) {
             })
             .catch((error) => {
                 console.log(error)
-                // window.location = '/'
+                window.location = '/'
             })
         }, ((expiresIn - 60) * 1000))
         return () => clearInterval(interval)
