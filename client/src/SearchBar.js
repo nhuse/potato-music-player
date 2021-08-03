@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import './Login.js'
 import SpotifyWebAPI from 'spotify-web-api-node' // this actually works from the browser
-import axios from "axios";
+import axios from "axios"
+// import fetch from "fetch"
 
 function SearchBar({accessToken, search, setSearch, searchResponse, setSearchResponse}) {
     console.log({accessToken})
@@ -14,26 +15,43 @@ function SearchBar({accessToken, search, setSearch, searchResponse, setSearchRes
         if(!search) return setSearchResponse([]) // default null state 
         if(!accessToken) return // prevent no accesstoken error
         console.log('search still here')
-        axios.get(`https://api.spotify.com/v1/search?q=bob%20year:2014&type=album`, {
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ` + accessToken
-            }
-            })
-        .then(res => {
-                console.log('search fetch res')
-                console.log(res)
-            })
-    },[search]) // will run if search or accessToken change
+        let searchURL = `https://api.spotify.com/v1/search?q=bob%20year:2014&type=album`
+        const params = {
+          method: 'GET',
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ` + accessToken       
+        }
+      }
+        searchCall()
+        function searchCall() {
+          console.log('searchCall here')
+          fetch(`https://api.spotify.com/v1/search?q=bob%20year:2014&type=album`, params)
+            .then(res =>res.json())
+            .then(data => console.log(data))
+        }
+
+        // axios.get(, {
+        //     headers: {
+        //         "Accept": "application/json",
+        //         "Content-Type": "application/json",
+        //         Authorization: `Bearer ` + accessToken
+        //     }
+        //     })
+        // .then(res => {
+        //         console.log('search fetch res')
+        //         console.log(res)
+        //     })
+    },[search, accessToken]) // will run if search or accessToken change
 
     // useEffect(() => {
     //     if(currentGenre !== "Category"){
     //         axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenre}/playlists?limit=12`, {
     //         headers: {
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json",
-    //             Authorization: `Bearer ` + accessToken
+                // "Accept": "application/json",
+                // "Content-Type": "application/json",
+                // Authorization: `Bearer ` + accessToken
     //         }
     //         })
     //         .then(resp => setGenrePlaylists(resp.data.playlists.items))

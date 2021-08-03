@@ -7,6 +7,7 @@ import './SideBar.css'
 import SideBar from './SideBar'
 import axios from 'axios'
 import Player from './Player'
+import SearchBar from './SearchBar'
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code)
