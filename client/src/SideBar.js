@@ -4,8 +4,9 @@ import { DropdownButton } from 'react-bootstrap'
 import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 import axios from 'axios'
 
-export default function SideBar({ accessToken, handleGenreChange, currentGenre }) {
+export default function SideBar({ accessToken, handleGenreChange }) {
     const [genreList, setGenreList] = useState(null)
+    const [userImg, setUserImg] = useState('')
 
     useEffect(() => {
         if(accessToken) {
@@ -18,25 +19,56 @@ export default function SideBar({ accessToken, handleGenreChange, currentGenre }
             })
             .then(resp => setGenreList(resp))
             .catch(error => console.log(error))
+            axios.get('https://api.spotify.com/v1/me', {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ` + accessToken
+                }
+            })
+            .then(resp => setUserImg(resp.data.images[0].url))
+            .catch(error => console.log(error))
         }
     }, [accessToken])
+
+    // useEffect(() => {
+    //     if(accessToken) {
+    //         axios.get('https://api.spotify.com/v1/me', {
+    //             headers: {
+    //                 "Accept": "application/json",
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ` + accessToken
+    //             }
+    //         })
+    //         .then(resp => setUserImg(resp.data.images[0].url))
+    //         .catch(error => console.log(error))
+    //     }
+    // }, [genreList])
     
     console.log(genreList)
-
-    
 
     if(genreList){
         return (
             <>
-                <DropdownButton className="genre-wrapper" onSelect={handleGenreChange} size="lg" title={currentGenre}>
-                        <DropdownItem eventKey="Category">Categories</DropdownItem>
-                        <DropdownItem eventKey={genreList.data.categories.items[0].id}>{genreList.data.categories.items[0].name}</DropdownItem>
-                        <DropdownItem eventKey={genreList.data.categories.items[1].id}>{genreList.data.categories.items[1].name}</DropdownItem>
-                        <DropdownItem eventKey={genreList.data.categories.items[2].id}>{genreList.data.categories.items[2].name}</DropdownItem>
-                        <DropdownItem eventKey={genreList.data.categories.items[3].id}>{genreList.data.categories.items[3].name}</DropdownItem>
-                        <DropdownItem eventKey={genreList.data.categories.items[4].id}>{genreList.data.categories.items[4].name}</DropdownItem>
-                        <DropdownItem eventKey={genreList.data.categories.items[5].id}>{genreList.data.categories.items[5].name}</DropdownItem>
-                </DropdownButton>
+                <h2 className="genre-ul-title">Genres:</h2>
+                <ul className = "genre-ul">
+                    <li className="genre-li-container" id="user-library" onClick={() => handleGenreChange("") }>
+                        <img className="genre-li-img" src={userImg} />
+                        <span className="genre-li-span">
+                                <p>Your Library</p>
+                        </span>
+                    </li>
+                    {genreList.data.categories.items.map(genre => {
+                        return (
+                        <li key={genre.id} className="genre-li-container" onClick={() => handleGenreChange(genre.id)}>
+                            <img className="genre-li-img" src={genre.icons[0].url} />
+                            <span className="genre-li-span">
+                                <p>{genre.name}</p>
+                            </span>
+                        </li>
+                        )
+                    })}
+                </ul>
                 <div className="recently-played">
     
                 </div>

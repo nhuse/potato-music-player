@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import PlaylistContainer from './PlaylistContainer'
 
 
-export default function PlaylistFetch({ accessToken, genrePlaylists }) {
+export default function PlaylistFetch({ accessToken, genrePlaylists, handlePlaylistClick }) {
     
     const [playlistResp , setPlaylistResp] = useState([])// will hold response from playlist get
     console.log(genrePlaylists)
@@ -28,6 +28,6 @@ export default function PlaylistFetch({ accessToken, genrePlaylists }) {
     console.log(playlistResp)
     
     return (
-        genrePlaylists.length > 0 ? <PlaylistContainer playlists={genrePlaylists} /> : <PlaylistContainer playlists={playlistResp} />
+        genrePlaylists.length > 0 ? <PlaylistContainer handlePlaylistClick={handlePlaylistClick} playlists={genrePlaylists} /> : <PlaylistContainer playlists={playlistResp} handlePlaylistClick={handlePlaylistClick} />
     )
 }

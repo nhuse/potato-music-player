@@ -9,18 +9,38 @@ import Player from './Player'
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code)
-    const [currentGenre, setCurrentGenre] = useState("Category");
+    const [currentGenreID, setCurrentGenreID] = useState("");
     const [genrePlaylists, setGenrePlaylists] = useState([])
+    const [playlistID, setPlaylistID] = useState("")
+    const [songList, setSongList] = useState([]);
 
-    function handleGenreChange(event) {
-        setCurrentGenre(event)
+    function handleGenreChange(id) {
+        setCurrentGenreID(id)
     }
 
-    console.log(currentGenre)
+    function handlePlaylistClick(id) {
+        setPlaylistID(id)
+    }
 
     useEffect(() => {
-        if(currentGenre !== "Category"){
-            axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenre}/playlists?limit=12`, {
+        if(playlistID !== "") {
+            axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=US&limit=25` , {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ` + accessToken
+                }
+            })
+            .then(resp => console.log(resp))
+            .catch((error) => console.log(error))
+        }
+    }, [playlistID])
+
+    console.log(currentGenreID)
+
+    useEffect(() => {
+        if(currentGenreID !== ""){
+            axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenreID}/playlists?limit=12`, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -32,7 +52,7 @@ export default function Dashboard({ code }) {
         }else{
             setGenrePlaylists([])
         }
-    }, [currentGenre])
+    }, [currentGenreID])
 
     return (
         <div className="dashboard">
@@ -40,13 +60,13 @@ export default function Dashboard({ code }) {
                 {/* SearchBar Component + logo */}
             </header>
             <aside className="side-bar">
-                <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} currentGenre={currentGenre}/>
+                <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} />
             </aside>
             <div className="playlist-song-container">
-                <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} />
+                <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
             </div>
             <div>
-                <Player accessToken={accessToken}/>
+                {/* <Player accessToken={accessToken}/> */}
             </div>
         </div>
     )

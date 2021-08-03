@@ -19,7 +19,7 @@ body {
 .playlist-song-container {
   display: inline-block;
   vertical-align: top;
-  width: 80%;
+  width: 85%;
   height: 100%;
   overflow: auto;
 }
