@@ -1,16 +1,14 @@
 import React from 'react';
 import PlaylistRender from './PlaylistRender';
+import './PlaylistContainer.css'
 
-function PlaylistContainer({playlistResp}) {
-    console.log({playlistResp})
-    const playlistList = playlistResp.data.items
+function PlaylistContainer({ playlists, handlePlaylistClick }) {
+    console.log(playlists)
     return (
-        <>
-            {
-            playlistList.map(playlist => <PlaylistRender key={playlist.id} playlist={playlist}/>)
-            }
-        </>
-    );
+        <div className="playlist-flex-container">
+            {playlists.map(playlist => <PlaylistRender key={playlist.id} playlist={playlist} handlePlaylistClick={handlePlaylistClick} />)}
+        </div>
+    )
 }
 
 export default PlaylistContainer;
