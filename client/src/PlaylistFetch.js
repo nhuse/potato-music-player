@@ -10,20 +10,19 @@ export default function PlaylistFetch({ accessToken, genrePlaylists, handlePlayl
 
     useEffect(() => {
         if(accessToken) {
-            axios.get(`https://api.spotify.com/v1/me/playlists?limit=12`, {
+            axios.get("https://api.spotify.com/v1/browse/featured-playlists?limit=12", {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     Authorization: `Bearer ` + accessToken
                 }
             })
-            .then(resp => setPlaylistResp(resp.data.items))
+            .then(resp => setPlaylistResp(resp.data.playlists.items))
             .catch((error) => console.log(error))
         }
     }, [accessToken])
 
-
-    if(!accessToken || playlistResp.length === 0) return null
+    if(!accessToken) return null
 
     console.log(playlistResp)
     

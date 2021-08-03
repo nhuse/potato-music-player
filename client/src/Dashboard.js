@@ -22,25 +22,40 @@ export default function Dashboard({ accessToken }) {
     }
 
     useEffect(() => {
-        if(currentGenreID !== ""){
-            axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenreID}/playlists?limit=12`, {
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ` + accessToken
-            }
+        if(currentGenreID === ""){
+            axios.get(`https://api.spotify.com/v1/me/playlists?limit=12`, {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ` + accessToken
+                }
             })
-            .then(resp => setGenrePlaylists(resp.data.playlists.items))
+            .then(resp => {
+                setSongList([])
+                setGenrePlaylists(resp.data.items)
+            })
             .catch((error) => console.log(error))
-        }else{
-            setGenrePlaylists([])
+        }
+        else{
+            axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenreID}/playlists?limit=12`, {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ` + accessToken
+                }
+                })
+                .then(resp => {
+                    setSongList([])
+                    setGenrePlaylists(resp.data.playlists.items)
+                })
+            .catch((error) => console.log(error))
         }
     }, [currentGenreID])
 
 
     function handlePlaylistClick(id) {
+        console.log(id)
         fetchSongs(id, nextUrl)
-        setSongList([])
     }
 
     function fetchSongs(id='', nextUrl) {
@@ -66,6 +81,8 @@ export default function Dashboard({ accessToken }) {
     function loadMoreSongs() {
         fetchSongs(nextUrl)
     }
+
+    console.log(songList)
 
     // function onSearchChange(event) {
     //     setSearchInput(event.target.value)

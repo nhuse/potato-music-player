@@ -28,7 +28,7 @@ export default function SongRender({ song, chooseTrack }) {
                     <p className="song-name">{track.name}</p>
                 </div>
                 <div>
-                    <p className="artist-name">{track.artist.name}</p>
+                    <p className="artist-name">{track.artists[0].name}</p>
                 </div>
             </div>
             <div>
