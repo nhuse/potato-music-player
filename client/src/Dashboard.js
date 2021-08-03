@@ -1,5 +1,6 @@
 import React, {  useEffect, useState } from 'react'
 import useAuth from './useAuth'
+import SpotifyPlayer from 'react-spotify-web-playback'
 import './App.css'
 import PlaylistFetch from './PlaylistFetch'
 import './SideBar.css'
@@ -62,7 +63,6 @@ export default function Dashboard({ code }) {
     // function chooseTrack(track) {
     //     setPlayingTrack(track)
     // }
-s
     return (
         <div className="dashboard">
             <header className="header">
@@ -75,6 +75,7 @@ s
                 <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
             </div>
             <div>
+                {/* will need track data from search/playlist components */}
                 <Player accessToken={accessToken} trackUri={playingTrack?.uri}/>
             </div>
         </div>
