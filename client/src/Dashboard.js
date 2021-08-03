@@ -13,6 +13,7 @@ export default function Dashboard({ code }) {
     const [genrePlaylists, setGenrePlaylists] = useState([])
     const [playlistID, setPlaylistID] = useState("")
     const [songList, setSongList] = useState([]);
+    const [offset, setOffset] = useState(0)
 
     function handleGenreChange(id) {
         setCurrentGenreID(id)
@@ -24,14 +25,17 @@ export default function Dashboard({ code }) {
 
     useEffect(() => {
         if(playlistID !== "") {
-            axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=US&limit=25` , {
+            axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=US&limit=25&offset=${offset}` , {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                     Authorization: `Bearer ` + accessToken
                 }
             })
-            .then(resp => console.log(resp))
+            .then(resp => {
+                setSongList(resp.data.items)
+                setOffset(offset => offset+25)
+            })
             .catch((error) => console.log(error))
         }
     }, [playlistID])
