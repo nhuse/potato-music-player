@@ -1,16 +1,14 @@
 import React, {  useEffect, useState } from 'react'
 import axios from 'axios'
-import useAuth from './useAuth'
 import './App.css'
 import PlaylistFetch from './PlaylistFetch'
 import SideBar from './SideBar'
 import './SideBar.css'
 import Player from './Player'
 import SongListContainer from './SongListContainer'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 
-export default function Dashboard({ code }) {
-    const accessToken = useAuth(code)
+export default function Dashboard({ accessToken }) {
     const [currentGenreID, setCurrentGenreID] = useState("");
     const [genrePlaylists, setGenrePlaylists] = useState([])
     const [songList, setSongList] = useState([]);
@@ -69,14 +67,14 @@ export default function Dashboard({ code }) {
         fetchSongs(nextUrl)
     }
 
-    function onSearchChange(event) {
-        setSearchInput(event.target.value)
-    }
+    // function onSearchChange(event) {
+    //     setSearchInput(event.target.value)
+    // }
 
     return (
         <div className="dashboard">
             <header className="header">
-                <SearchBar accessToken={accessToken} searchInput={searchInput} onSearchChange={onSearchChange} searchResponse={searchResponse} setSearchResponse={setSearchResponse} />
+                {/* <SearchBar accessToken={accessToken} searchInput={searchInput} onSearchChange={onSearchChange} searchResponse={searchResponse} setSearchResponse={setSearchResponse} /> */}
             </header>
             <aside className="side-bar">
                 <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} />

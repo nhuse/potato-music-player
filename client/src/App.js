@@ -3,12 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from './Login';
 import Dashboard from './Dashboard'
 
-const code = new URLSearchParams(window.location.search).get('code')
+const params = new URLSearchParams(window.location.hash.substr(1));
+const accessToken = params.get("access_token")
+
+console.log(accessToken)
 
 function App() {
-  console.log(code)
+  console.log(accessToken)
   return (
-    code ? <Dashboard code={code}/> : <Login />
+    accessToken ? <Dashboard accessToken={accessToken} /> : <Login />
   );
 }
 
