@@ -30,20 +30,6 @@ export default function SideBar({ accessToken, handleGenreChange }) {
             .catch(error => console.log(error))
         }
     }, [accessToken])
-
-    // useEffect(() => {
-    //     if(accessToken) {
-    //         axios.get('https://api.spotify.com/v1/me', {
-    //             headers: {
-    //                 "Accept": "application/json",
-    //                 "Content-Type": "application/json",
-    //                 Authorization: `Bearer ` + accessToken
-    //             }
-    //         })
-    //         .then(resp => setUserImg(resp.data.images[0].url))
-    //         .catch(error => console.log(error))
-    //     }
-    // }, [genreList])
     
     console.log(genreList)
 

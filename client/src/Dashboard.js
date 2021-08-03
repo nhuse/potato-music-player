@@ -1,66 +1,27 @@
 import React, {  useEffect, useState } from 'react'
+import axios from 'axios'
 import useAuth from './useAuth'
-import SpotifyPlayer from 'react-spotify-web-playback'
 import './App.css'
 import PlaylistFetch from './PlaylistFetch'
-import './SideBar.css'
 import SideBar from './SideBar'
-import axios from 'axios'
+import './SideBar.css'
 import Player from './Player'
+import SongListContainer from './SongListContainer'
+import SearchBar from './SearchBar'
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code)
     const [currentGenreID, setCurrentGenreID] = useState("");
     const [genrePlaylists, setGenrePlaylists] = useState([])
-    const [playlistID, setPlaylistID] = useState("")
     const [songList, setSongList] = useState([]);
-    const [offset, setOffset] = useState(0)
+    const [nextUrl, setNextUrl] = useState('')
     const [playingTrack, setPlayingTrack] = useState()
+    const [searchInput, setSearchInput] = useState('')
+    const [searchResponse, setSearchResponse] = useState([])
 
     function handleGenreChange(id) {
         setCurrentGenreID(id)
     }
-
-    function handlePlaylistClick(id) {
-        setPlaylistID(id)
-    }
-
-    function fetchSongs(){
-        useEffect(() => {
-            if(playlistID !== "") {
-                axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=US&limit=25&offset=${offset}` , {
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ` + accessToken
-                    }
-                })
-                .then(resp => {
-                    setSongList(resp.data.items)
-                    setOffset(offset => offset+25)
-                })
-                .catch((error) => console.log(error))
-            }
-        }, [playlistID])
-    }
-    useEffect(() => {
-        if(playlistID !== "") {
-            axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=US&limit=25&offset=${offset}` , {
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ` + accessToken
-                }
-            })
-            .then(resp => {
-                setSongList(resp.data.items)
-                setOffset(offset => offset+25)
-            })
-            .catch((error) => console.log(error))
-        }
-    }, [playlistID])
-
-    console.log(currentGenreID)
 
     useEffect(() => {
         if(currentGenreID !== ""){
@@ -78,23 +39,54 @@ export default function Dashboard({ code }) {
         }
     }, [currentGenreID])
 
-    // function chooseTrack(track) {
-    //     setPlayingTrack(track)
-    // }
+
+    function handlePlaylistClick(id) {
+        fetchSongs(id, nextUrl)
+    }
+
+    function fetchSongs(id='', nextUrl) {
+        axios.get((nextUrl==='' ? `https://api.spotify.com/v1/playlists/${id}/tracks?market=US&limit=25` : nextUrl) , {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ` + accessToken
+            }
+        })
+        .then(resp => {
+            setSongList(resp.data.items)
+            setNextUrl(resp.data.next)
+        })
+        .catch((error) => console.log(error))
+    }
+
+
+    function chooseTrack(track) {
+        setPlayingTrack(track)
+    }
+
+    function loadMoreSongs() {
+        fetchSongs(nextUrl)
+    }
+
+    function onSearchChange(event) {
+        setSearchInput(event.target.value)
+    }
 
     return (
         <div className="dashboard">
             <header className="header">
-                {/* SearchBar Component + logo */}
+                <SearchBar accessToken={accessToken} searchInput={searchInput} onSearchChange={onSearchChange} searchResponse={searchResponse} setSearchResponse={setSearchResponse} />
             </header>
             <aside className="side-bar">
                 <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} />
             </aside>
             <div className="playlist-song-container">
+                {songList.length === 0 ? 
                 <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
-            </div>
-            <div>
-                {/* <Player accessToken={accessToken} trackUri={playingTrack.uri}/> */}
+                :
+                <SongListContainer songList={songList} chooseTrack={chooseTrack} loadMoreSongs={loadMoreSongs} />
+                }
+                {playingTrack ? <Player accessToken={accessToken} trackUri={playingTrack} /> : null}
             </div>
         </div>
     )
