@@ -1,0 +1,61 @@
+import React, {useState, useEffect} from "react";
+import './Login.js'
+import SpotifyWebAPI from 'spotify-web-api-node' // this actually works from the browser
+import axios from "axios";
+
+function SearchBar({accessToken, search, setSearch, searchResponse, setSearchResponse}) {
+    console.log({accessToken})
+    const spotifyAPI = new SpotifyWebAPI({
+        clientId: "d464d95ff32b4e2aa6de17a36668212d",
+    })
+
+    useEffect(() => {
+        console.log('search fetch called')
+        if(!search) return setSearchResponse([]) // default null state 
+        if(!accessToken) return // prevent no accesstoken error
+        console.log('search still here')
+        axios.get(`https://api.spotify.com/v1/search?q=bob%20year:2014&type=album`, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ` + accessToken
+            }
+            })
+        .then(res => {
+                console.log('search fetch res')
+                console.log(res)
+            })
+    },[search]) // will run if search or accessToken change
+
+    // useEffect(() => {
+    //     if(currentGenre !== "Category"){
+    //         axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenre}/playlists?limit=12`, {
+    //         headers: {
+    //             "Accept": "application/json",
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ` + accessToken
+    //         }
+    //         })
+    //         .then(resp => setGenrePlaylists(resp.data.playlists.items))
+    //         .catch((error) => console.log(error))
+    //     }else{
+    //         setGenrePlaylists([])
+    //     }
+    // }, [currentGenre])
+
+  return (
+    <div className="search">
+      <label htmlFor="search"></label>
+      <input
+        type="text"
+        id="search"
+        name="search"
+        placeholder="Search for a Song..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+    </div>
+  );
+}
+
+export default SearchBar;
