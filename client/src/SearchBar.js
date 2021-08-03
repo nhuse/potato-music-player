@@ -4,7 +4,7 @@ import './Login.js'
 import axios from "axios"
 // import fetch from "fetch"
 
-function SearchBar({ accessToken, searchInput, onSearchChange, searchResponse, setSearchResponse }) {
+function SearchBar({ accessToken, searchInput, onSearchChange, setSearchResponse }) {
     console.log(accessToken)
     // const spotifyAPI = new SpotifyWebAPI({
     //     clientId: "d464d95ff32b4e2aa6de17a36668212d",
@@ -12,7 +12,7 @@ function SearchBar({ accessToken, searchInput, onSearchChange, searchResponse, s
 
     useEffect(() => {
         console.log('search fetch called')
-        // if(!search) return setSearchResponse([]) // default null state 
+        if(searchInput === "") return setSearchResponse([]) // default null state 
         if(!accessToken) return null // prevent no accesstoken error
         console.log('search still here')
         let searchURL = `https://api.spotify.com/v1/search?q=bob%20year:2014&type=album`

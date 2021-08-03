@@ -42,6 +42,7 @@ export default function Dashboard({ code }) {
 
     function handlePlaylistClick(id) {
         fetchSongs(id, nextUrl)
+        setSongList([])
     }
 
     function fetchSongs(id='', nextUrl) {
