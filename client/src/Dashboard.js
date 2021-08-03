@@ -15,6 +15,12 @@ export default function Dashboard({ code }) {
     const [playlistID, setPlaylistID] = useState("")
     const [songList, setSongList] = useState([]);
 
+    // begin eli changes
+    const [search, setSearch] = useState("")
+    console.log({search})
+    const [searchResponse, setSearchResponse] = useState([])
+    // end eli changes
+
     function handleGenreChange(id) {
         setCurrentGenreID(id)
     }
