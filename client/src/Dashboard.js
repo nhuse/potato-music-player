@@ -1,5 +1,6 @@
 import React, {  useEffect, useState } from 'react'
 import useAuth from './useAuth'
+import SpotifyPlayer from 'react-spotify-web-playback'
 import './App.css'
 import PlaylistFetch from './PlaylistFetch'
 import './SideBar.css'
@@ -58,6 +59,14 @@ export default function Dashboard({ code }) {
         }
     }, [currentGenreID])
 
+    //works with the player -TK
+    const [playingTrack, setPlayingTrack] = useState()
+    
+    //chooseTrack function needs to be passed down to use in a click event handler so that the clicked track plays
+    //the track data will pass from the playlist/search components -TK
+    // function chooseTrack(track) {
+    //     setPlayingTrack(track)
+    // }
     return (
         <div className="dashboard">
             <header className="header">
@@ -70,7 +79,8 @@ export default function Dashboard({ code }) {
                 <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
             </div>
             <div>
-                {/* <Player accessToken={accessToken}/> */}
+                {/* will need track data from search/playlist components */}
+                <Player accessToken={accessToken} trackUri={playingTrack?.uri}/>
             </div>
         </div>
     )
