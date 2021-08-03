@@ -15,6 +15,7 @@ export default function Dashboard({ code }) {
     const [playlistID, setPlaylistID] = useState("")
     const [songList, setSongList] = useState([]);
     const [offset, setOffset] = useState(0)
+    const [playingTrack, setPlayingTrack] = useState()
 
     function handleGenreChange(id) {
         setCurrentGenreID(id)
@@ -24,6 +25,24 @@ export default function Dashboard({ code }) {
         setPlaylistID(id)
     }
 
+    function fetchSongs(){
+        useEffect(() => {
+            if(playlistID !== "") {
+                axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=US&limit=25&offset=${offset}` , {
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ` + accessToken
+                    }
+                })
+                .then(resp => {
+                    setSongList(resp.data.items)
+                    setOffset(offset => offset+25)
+                })
+                .catch((error) => console.log(error))
+            }
+        }, [playlistID])
+    }
     useEffect(() => {
         if(playlistID !== "") {
             axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=US&limit=25&offset=${offset}` , {
@@ -59,14 +78,10 @@ export default function Dashboard({ code }) {
         }
     }, [currentGenreID])
 
-    //works with the player -TK
-    const [playingTrack, setPlayingTrack] = useState()
-    
-    //chooseTrack function needs to be passed down to use in a click event handler so that the clicked track plays
-    //the track data will pass from the playlist/search components -TK
     // function chooseTrack(track) {
     //     setPlayingTrack(track)
     // }
+
     return (
         <div className="dashboard">
             <header className="header">
@@ -79,8 +94,7 @@ export default function Dashboard({ code }) {
                 <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
             </div>
             <div>
-                {/* will need track data from search/playlist components */}
-                <Player accessToken={accessToken} trackUri={playingTrack?.uri}/>
+                {/* <Player accessToken={accessToken} trackUri={playingTrack.uri}/> */}
             </div>
         </div>
     )
