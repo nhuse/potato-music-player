@@ -22,17 +22,18 @@ export default function SongRender({ song, chooseTrack }) {
 
     return (
         <li className="song-li-container" onClick={() => chooseTrack(track.uri)}>
-            <img src={img} className="album-cover" />
-            <div>
-                <div>
-                    <p className="song-name">{track.name}</p>
-                </div>
-                <div>
-                    <p className="artist-name">{track.artists[0].name}</p>
-                </div>
+            <div className="album-img">
+                <img src={img} className="album-cover" />
             </div>
-            <div>
-                <p>{msConverter(track.duration_ms)}</p>
+            <div className="song-info">
+                <p className="song-name">{track.name}</p>
+                <p className="artist-name">{track.artists[0].name}</p>
+            </div>
+            <div className="album-name">
+                <p className="album-name-p">{track.album.name}</p>
+            </div>
+            <div className="time">
+                <p className="time-p">{msConverter(track.duration_ms)}</p>
             </div>
         </li>
     )

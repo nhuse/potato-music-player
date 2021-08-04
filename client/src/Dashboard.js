@@ -12,7 +12,6 @@ export default function Dashboard({ accessToken }) {
     const [currentGenreID, setCurrentGenreID] = useState("");
     const [genrePlaylists, setGenrePlaylists] = useState([])
     const [songList, setSongList] = useState([]);
-    const [nextUrl, setNextUrl] = useState('')
     const [playingTrack, setPlayingTrack] = useState()
     const [searchInput, setSearchInput] = useState('')
     const [searchResponse, setSearchResponse] = useState([])
@@ -23,7 +22,7 @@ export default function Dashboard({ accessToken }) {
 
     useEffect(() => {
         if(currentGenreID === ""){
-            axios.get(`https://api.spotify.com/v1/me/playlists?limit=12`, {
+            axios.get(`https://api.spotify.com/v1/me/playlists?limit=20`, {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
@@ -37,7 +36,7 @@ export default function Dashboard({ accessToken }) {
             .catch((error) => console.log(error))
         }
         else{
-            axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenreID}/playlists?limit=12`, {
+            axios.get(`https://api.spotify.com/v1/browse/categories/${currentGenreID}/playlists?limit=20`, {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
@@ -55,11 +54,7 @@ export default function Dashboard({ accessToken }) {
 
     function handlePlaylistClick(id) {
         console.log(id)
-        fetchSongs(id, nextUrl)
-    }
-
-    function fetchSongs(id='', nextUrl) {
-        axios.get((nextUrl==='' ? `https://api.spotify.com/v1/playlists/${id}/tracks?market=US&limit=25` : nextUrl) , {
+        axios.get(`https://api.spotify.com/v1/playlists/${id}/tracks?market=US` , {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -68,18 +63,13 @@ export default function Dashboard({ accessToken }) {
         })
         .then(resp => {
             setSongList(resp.data.items)
-            setNextUrl(resp.data.next)
         })
-        .catch((error) => console.log(error))
+        .catch((error) => console.log(error))  
     }
 
 
     function chooseTrack(track) {
         setPlayingTrack(track)
-    }
-
-    function loadMoreSongs() {
-        fetchSongs(nextUrl)
     }
 
     console.log(songList)
@@ -100,9 +90,11 @@ export default function Dashboard({ accessToken }) {
                 {songList.length === 0 ? 
                 <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
                 :
-                <SongListContainer songList={songList} chooseTrack={chooseTrack} loadMoreSongs={loadMoreSongs} />
+                <SongListContainer songList={songList} chooseTrack={chooseTrack} />
                 }
-                {playingTrack ? <Player accessToken={accessToken} trackUri={playingTrack} /> : null}
+                <div className="player-container">
+                    {playingTrack ? <Player accessToken={accessToken} trackUri={playingTrack} /> : null}
+                </div>
             </div>
         </div>
     )

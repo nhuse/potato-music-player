@@ -36,7 +36,7 @@ export default function SideBar({ accessToken, handleGenreChange }) {
     if(genreList){
         return (
             <>
-                <h2 className="genre-ul-title">Genres:</h2>
+                <h2 className="genre-ul-title">Genres</h2>
                 <ul className = "genre-ul">
                     <li className="genre-li-container" id="user-library" onClick={() => handleGenreChange("") }>
                         <img className="genre-li-img" src={userImg} />

@@ -23,3 +23,9 @@ body {
   height: 100%;
   overflow: auto;
 }
+
+.player-container {
+  position: fixed;
+  bottom: 0;
+  width: 85%;
+}

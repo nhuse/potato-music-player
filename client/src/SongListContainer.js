@@ -1,7 +1,7 @@
 import SongRender from './SongRender'
 import './SongRender.css'
 
-export default function SongListContainer({ songList, loadMoreSongs, chooseTrack }){
+export default function SongListContainer({ songList, chooseTrack }){
     return(
         <>
             <ul className="song-ul">
@@ -9,9 +9,7 @@ export default function SongListContainer({ songList, loadMoreSongs, chooseTrack
                     {console.log(song)}
                     return <SongRender key={song.track.id} song={song} chooseTrack={chooseTrack} />
                 })}
-            </ul><br/>
-
-            <button onClick={loadMoreSongs} className="load-more-btn">Load More Songs</button>
+            </ul>
         </>
     )
 }

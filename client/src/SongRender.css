@@ -1,5 +1,52 @@
+.song-ul {
+    width: 100%;
+    list-style: none;
+}
+
+.song-li-container {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    width: 100%;
+    margin-top: 15px;
+    color: rgba(255,255,255,.87);
+}
+
 .album-cover {
-    width: 20px;
+    width: 60px;
     height: auto;
 }
 
+.album-img {
+    width: auto;
+    margin-right: 25px;
+}
+
+.song-info {
+    width: 100%;
+} 
+
+.song-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.album-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-right: 40px;
+}
+
+.time-p {
+    margin-left: auto;
+}
