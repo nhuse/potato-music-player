@@ -9,8 +9,7 @@ import SongListContainer from './SongListContainer'
 // import SearchBar from './SearchBar'
 import {Redirect} from 'react-router-dom'
 
-export default function Dashboard({ accessTokenHook: accessTokenHook, isLoggedIn }) {
-    const accessToken = accessTokenHook
+export default function Dashboard({ accessToken }) {
     const [currentGenreID, setCurrentGenreID] = useState("")
     const [genrePlaylists, setGenrePlaylists] = useState([])
     const [songList, setSongList] = useState([])
@@ -18,7 +17,8 @@ export default function Dashboard({ accessTokenHook: accessTokenHook, isLoggedIn
     const [searchInput, setSearchInput] = useState('')
     const [searchResponse, setSearchResponse] = useState([])
     console.log({accessToken})
-    // if (!isLoggedIn) return <Redirect to="/login" />;
+
+    
     function handleGenreChange(id) {
         setCurrentGenreID(id)
     }
@@ -81,16 +81,16 @@ export default function Dashboard({ accessTokenHook: accessTokenHook, isLoggedIn
     //     setSearchInput(event.target.value)
     // }
 
+    if(!accessToken) {
+        return <Redirect to="/login" />
+    }
     return (
         <div className="dashboard">
-            <header className="header">
-                {/* <SearchBar accessToken={accessToken} searchInput={searchInput} onSearchChange={onSearchChange} searchResponse={searchResponse} setSearchResponse={setSearchResponse} /> */}
-            </header>
             <aside className="side-bar">
                 <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} />
             </aside>
             <div className="playlist-song-container">
-                {songList.length === 0 ? 
+            {songList.length === 0 ? 
                 <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
                 :
                 <SongListContainer songList={songList} chooseTrack={chooseTrack} />

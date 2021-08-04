@@ -1,36 +1,34 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import './NavBar.css'
+import potato from './potato.jpg'
 
 const linkStyles = {
   width: "100px",
   padding: "12px",
   margin: "0 6px 6px",
-  background: "blue",
+  background: "#00f000",
   textDecoration: "none",
-  color: "white",
+  color: "rgba(255,255,255,.87)",
 };
 
-function Navbar({ setIsLoggedIn }) {
+function Navbar({ accessToken, setAccessToken }) {
   const history = useHistory();
 
   function handleLogout() {
-    setIsLoggedIn(false);
+    setAccessToken(null);
     history.push("/login");
   }
 
   return (
-    <div>
+    <div className="nav-bar">
       <NavLink
         to="/"
-        /* set exact so it knows to only set activeStyle when route is deeply equal to link */
         exact
-        /* add styling to Navlink */
         style={linkStyles}
-        /* add prop for activeStyle */
         activeStyle={{
-          background: "darkblue",
-        }}
-      >
+          background: "#1db954",
+      }}>
         Home
       </NavLink>
       <NavLink
@@ -38,22 +36,30 @@ function Navbar({ setIsLoggedIn }) {
         exact
         style={linkStyles}
         activeStyle={{
-          background: "darkblue",
-        }}
-      >
+          background: "#1db954",
+      }}>
         Dashboard
       </NavLink>
+      {accessToken ?
+      <NavLink onClick={handleLogout}
+        to="/"
+        style={linkStyles}
+        activeStyle={{
+          background: "#1db954",
+      }}>Logout
+      </NavLink>
+      :
       <NavLink
         to="/login"
         exact
         style={linkStyles}
         activeStyle={{
-          background: "darkblue",
-        }}
-      >
+          background: "#1db954",
+      }}>
         Login
-      </NavLink>
-      <button onClick={handleLogout}>Logout</button>
+      </NavLink> 
+      }
+      <img src={potato} alt='potato' id="potato-img" />
     </div>
   );
 }
