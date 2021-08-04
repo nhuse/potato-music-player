@@ -7,15 +7,18 @@ import './SideBar.css'
 import Player from './Player'
 import SongListContainer from './SongListContainer'
 // import SearchBar from './SearchBar'
+import {Redirect} from 'react-router-dom'
 
-export default function Dashboard({ accessToken }) {
-    const [currentGenreID, setCurrentGenreID] = useState("");
+export default function Dashboard({ accessTokenHook: accessTokenHook, isLoggedIn }) {
+    const accessToken = accessTokenHook
+    const [currentGenreID, setCurrentGenreID] = useState("")
     const [genrePlaylists, setGenrePlaylists] = useState([])
-    const [songList, setSongList] = useState([]);
+    const [songList, setSongList] = useState([])
     const [playingTrack, setPlayingTrack] = useState()
     const [searchInput, setSearchInput] = useState('')
     const [searchResponse, setSearchResponse] = useState([])
-
+    console.log({accessToken})
+    // if (!isLoggedIn) return <Redirect to="/login" />;
     function handleGenreChange(id) {
         setCurrentGenreID(id)
     }
