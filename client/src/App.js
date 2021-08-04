@@ -31,6 +31,9 @@ function App() {
         <Route exact path="/dashboard">
           <Dashboard accessToken={accessTokenState} />
         </Route>
+        <Route path="/dashboard:">
+          <Dashboard accessToken={accessTokenState} />
+        </Route>
       </Switch>
     </div>
     // accessToken ? <Dashboard accessToken={accessToken} /> : <Login />

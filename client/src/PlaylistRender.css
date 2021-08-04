@@ -16,3 +16,9 @@
     width: 300px;
     height: auto;
 }
+
+/* 
+flex shrink and flex grow could help with playlist render OR use react socks to create breakpoints that render different sized tilesa
+or do it for IOS with less than 500 px. react socks can be used for iOS dev
+andy uses material UI css
+*/
