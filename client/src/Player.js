@@ -11,9 +11,9 @@ export default function Player({ accessToken, trackUri }) {
     if (!accessToken) return null
     return <SpotifyPlayer token={accessToken}
         showSaveIcon
-        callback={state => {
-            if(!state.isPlaying) setPlay(false)
-        }}
+        // callback={state => {
+        //     if(!state.isPlaying) setPlay(false)
+        // }}
         play={play}
         initialVolume
         uris={trackUri ? [trackUri] : []}
