@@ -1,9 +1,10 @@
 .side-bar {
     text-align: center;
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
     vertical-align: top;
     width: 15%;
-    height: 100%;
+    height: auto;
     background-color: #1e1e1e;
     color: rgba(255,255,255,.87);
     overflow: auto;
@@ -30,11 +31,11 @@
 .genre-ul {
     padding-left: 5px;
     height: 50%;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .genre-li-container {
-    margin-top: 15px;
+    margin-top: 5px;
     align-self: center;
     display: grid;
     grid-auto-flow: column;  
@@ -45,14 +46,49 @@
 }
 
 .genre-li-img {
-    width: 75px;
+    width: 55px;
     height: auto;
     align-self: center;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .genre-li-span {
-    width: 100px;
+    width: 200px;
+    font-size: 15px;
     align-self: center;
     color: rgba(255,255,255,.87);
+}
+
+.recent-img {
+    width: 40px;
+    height: auto;
+}
+
+.recently-played-li-container{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.recently-played-ul {
+    padding-left: 5px;
+    height: 50%;
+    margin-top: 10px;
+}
+
+.recently-played-li-span {
+    align-self: center;
+    color: rgba(255,255,255,.87);
+}
+
+.most-recent-info {
+    text-align: left;
+    margin-left: 10px;
+    font-size: 12px
+}
+
+.most-recent-name {
+    margin-bottom: 5px;
+    font-weight: bold;
 }

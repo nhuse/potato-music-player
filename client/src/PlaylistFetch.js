@@ -6,7 +6,6 @@ import PlaylistContainer from './PlaylistContainer'
 export default function PlaylistFetch({ accessToken, genrePlaylists, handlePlaylistClick }) {
     
     const [playlistResp , setPlaylistResp] = useState([])// will hold response from playlist get
-    console.log(genrePlaylists)
 
     useEffect(() => {
         if(accessToken) {
@@ -23,8 +22,6 @@ export default function PlaylistFetch({ accessToken, genrePlaylists, handlePlayl
     }, [accessToken])
 
     if(!accessToken) return null
-
-    console.log(playlistResp)
     
     return (
         genrePlaylists.length > 0 ? <PlaylistContainer handlePlaylistClick={handlePlaylistClick} playlists={genrePlaylists} /> : <PlaylistContainer playlists={playlistResp} handlePlaylistClick={handlePlaylistClick} />

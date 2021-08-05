@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
 import './SideBar.css'
-import { DropdownButton } from 'react-bootstrap'
-import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 import axios from 'axios'
+import CDImage from './cd.png'
 
-export default function SideBar({ accessToken, handleGenreChange }) {
+export default function SideBar({ accessToken, handleGenreChange, recentlyPlayedTrack, chooseTrack }) {
     const [genreList, setGenreList] = useState(null)
     const [userImg, setUserImg] = useState('')
 
+    console.log(recentlyPlayedTrack)
+
     useEffect(() => {
         if(accessToken) {
-            axios.get('https://api.spotify.com/v1/browse/categories?limit=6', {
+            axios.get('https://api.spotify.com/v1/browse/categories?limit=5', {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
@@ -30,13 +31,13 @@ export default function SideBar({ accessToken, handleGenreChange }) {
             .catch(error => console.log(error))
         }
     }, [accessToken])
-    
-    console.log(genreList)
+
+
 
     if(genreList){
         return (
             <>
-                <h2 className="genre-ul-title">Genres</h2>
+                <h3 className="genre-ul-title">Genres</h3>
                 <ul className = "genre-ul">
                     <li className="genre-li-container" id="user-library" onClick={() => handleGenreChange("") }>
                         <img className="genre-li-img" src={userImg} />
@@ -55,9 +56,27 @@ export default function SideBar({ accessToken, handleGenreChange }) {
                         )
                     })}
                 </ul>
-                <div className="recently-played">
-    
-                </div>
+                <h3>Recently Played</h3>
+                <ul className="recently-played-ul">
+                    
+                    {recentlyPlayedTrack.map(mostRecent => {
+                        return (
+                        <li key={mostRecent.track.id} className="recently-played-li-container"  onClick={() => {
+                            chooseTrack(mostRecent.track.uri, mostRecent)
+                        }}>
+                            <img src={mostRecent.track.album.images[0].length === 0 ? 
+                            CDImage
+                            : 
+                            mostRecent.track.album.images[0].url}
+                            className="recent-img"/>
+                            <div className="most-recent-info">
+                                <p className="most-recent-name">{mostRecent.track.name}</p>
+                                <p className="most-recent-artist-name">{mostRecent.track.artists[0].name}</p>
+                            </div>
+                        </li>
+                        )
+                    })}
+                </ul>
             </>
         )
     }

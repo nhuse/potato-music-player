@@ -19,24 +19,19 @@ function App() {
     setAccessToken(accessToken)
     }
   },[accessToken])
-
-  console.log({accessTokenState})
   return (
     <div>
-      <Navbar accessToken={accessTokenState} setAccessToken={setAccessToken} />
+      <Navbar accessToken={accessTokenState} setAccessToken={setAccessToken} params={params}/>
       <Switch>
         <Route exact path="/login">
-          <Login/>
+          <Login />
         </Route>
         <Route exact path="/dashboard">
           <Dashboard accessToken={accessTokenState} />
         </Route>
-        <Route path="/dashboard:">
-          <Dashboard accessToken={accessTokenState} />
-        </Route>
       </Switch>
+      {accessTokenState ? <Redirect to="/dashboard" /> : <Redirect to="/login" /> }
     </div>
-    // accessToken ? <Dashboard accessToken={accessToken} /> : <Login />
   );
 }
 

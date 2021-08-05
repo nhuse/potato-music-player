@@ -1,0 +1,9 @@
+.login-component {
+    height: 100%;
+}
+
+.login-logo {
+    width: 60vh;
+    height: auto;
+    margin-bottom: 100px;
+}

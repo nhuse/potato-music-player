@@ -2,7 +2,6 @@ import './SongRender.css'
 
 export default function SongRender({ song, chooseTrack }) {
     const { track } = song;
-    console.log(song)
     let img = ''
 
     function msConverter(time) {
@@ -15,13 +14,17 @@ export default function SongRender({ song, chooseTrack }) {
         );
     }
 
+    function handleClick() {
+        chooseTrack(track.uri, song)
+    }
+
     track.album.images.length == 0 ? 
     img = 'https://www.pngall.com/wp-content/uploads/2016/04/Compact-Disk-Download-PNG.png' 
     : 
     img = track.album.images[0].url
 
     return (
-        <li className="song-li-container" onClick={() => chooseTrack(track.uri)}>
+        <li className="song-li-container" onClick={handleClick}>
             <div className="album-img">
                 <img src={img} className="album-cover" />
             </div>

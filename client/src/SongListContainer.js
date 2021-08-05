@@ -6,7 +6,6 @@ export default function SongListContainer({ songList, chooseTrack }){
         <>
             <ul className="song-ul">
                 {songList.map(song => {
-                    {console.log(song)}
                     return <SongRender key={song.track.id} song={song} chooseTrack={chooseTrack} />
                 })}
             </ul>

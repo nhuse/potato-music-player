@@ -14,9 +14,11 @@ export default function Dashboard({ accessToken }) {
     const [genrePlaylists, setGenrePlaylists] = useState([])
     const [songList, setSongList] = useState([])
     const [playingTrack, setPlayingTrack] = useState()
-    const [searchInput, setSearchInput] = useState('')
-    const [searchResponse, setSearchResponse] = useState([])
-    console.log({accessToken})
+    const [recentlyPlayedTrack, setRecentlyPlayedTrack] = useState([])
+    // const [searchInput, setSearchInput] = useState('')
+    // const [searchResponse, setSearchResponse] = useState([])
+
+    console.log(recentlyPlayedTrack);
 
     
     function handleGenreChange(id) {
@@ -56,7 +58,6 @@ export default function Dashboard({ accessToken }) {
 
 
     function handlePlaylistClick(id) {
-        console.log(id)
         axios.get(`https://api.spotify.com/v1/playlists/${id}/tracks?market=US` , {
             headers: {
                 "Accept": "application/json",
@@ -70,12 +71,39 @@ export default function Dashboard({ accessToken }) {
         .catch((error) => console.log(error))  
     }
 
-
-    function chooseTrack(track) {
+    function chooseTrack(track, song) {
         setPlayingTrack(track)
+        console.log(song)
+        if(containsSong(song, recentlyPlayedTrack) === true) {
+            let newArr = recentlyPlayedTrack.filter(item => {
+                console.log(item)
+                return (item.track.id !== song.track.id)
+            })
+
+            if(recentlyPlayedTrack.length >= 5) {
+                setRecentlyPlayedTrack([song, ...newArr.slice(0, 5)])
+            }else {
+                setRecentlyPlayedTrack([song, ...newArr])
+            }
+        } else {
+            if(recentlyPlayedTrack.length >= 5) {
+                setRecentlyPlayedTrack([song, ...recentlyPlayedTrack.slice(0, 4)])
+            }else {
+                setRecentlyPlayedTrack([song, ...recentlyPlayedTrack])
+            }
+        }
     }
 
-    console.log(songList)
+    function containsSong(song, recentlyPlayedTrack) {
+        let i;
+        console.log(recentlyPlayedTrack)
+        for (i = 0; i < recentlyPlayedTrack.length; i++) {
+            if(recentlyPlayedTrack[i].track.id === song.track.id){
+                return true
+            } 
+        }
+        return false
+    }
 
     // function onSearchChange(event) {
     //     setSearchInput(event.target.value)
@@ -83,22 +111,23 @@ export default function Dashboard({ accessToken }) {
 
     if(!accessToken) {
         return <Redirect to="/login" />
-    }
-    return (
-        <div className="dashboard">
-            <aside className="side-bar">
-                <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} />
-            </aside>
-            <div className="playlist-song-container">
-            {songList.length === 0 ? 
-                <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
-                :
-                <SongListContainer songList={songList} chooseTrack={chooseTrack} />
-                }
+    }else {
+        return (
+            <div className="dashboard">
+                <aside className="side-bar">
+                    <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} recentlyPlayedTrack={recentlyPlayedTrack} chooseTrack={chooseTrack}/>
+                </aside>
+                <div className="playlist-song-container">
+                {songList.length === 0 ? 
+                    <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
+                    :
+                    <SongListContainer songList={songList} chooseTrack={chooseTrack} />
+                    }
+                </div>
                 <div className="player-container">
                     {playingTrack ? <Player accessToken={accessToken} trackUri={playingTrack} /> : null}
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
