@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import './NavBar.css'
-import potato from './potato.jpg'
+import potato from './potato.png'
 
 const linkStyles = {
   width: "100px",
@@ -22,15 +22,6 @@ function Navbar({ accessToken, setAccessToken, params }) {
 
   return (
     <div className="nav-bar">
-      <NavLink
-        to="/"
-        exact
-        style={linkStyles}
-        activeStyle={{
-          background: "#1db954",
-      }}>
-        Home
-      </NavLink>
       <NavLink
         to="/dashboard"
         exact
