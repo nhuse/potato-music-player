@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import './SideBar.css'
+import '../Styling/SideBar.css'
 import axios from 'axios'
-import CDImage from './cd.png'
+import CDImage from '../Images/cd.png'
 
 export default function SideBar({ accessToken, handleGenreChange, recentlyPlayedTrack, chooseTrack }) {
     const [genreList, setGenreList] = useState(null)
@@ -31,8 +31,6 @@ export default function SideBar({ accessToken, handleGenreChange, recentlyPlayed
             .catch(error => console.log(error))
         }
     }, [accessToken])
-
-
 
     if(genreList){
         return (

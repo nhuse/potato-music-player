@@ -1,16 +1,16 @@
 import React, {  useEffect, useState } from 'react'
 import axios from 'axios'
-import './App.css'
+import '../Styling/App.css'
 import PlaylistFetch from './PlaylistFetch'
 import SideBar from './SideBar'
-import './SideBar.css'
+import '../Styling/SideBar.css'
 import Player from './Player'
 import SongListContainer from './SongListContainer'
 // import SearchBar from './SearchBar'
 import {Redirect} from 'react-router-dom'
 
 export default function Dashboard({ accessToken }) {
-    const [currentGenreID, setCurrentGenreID] = useState("")
+    const [currentGenreID, setCurrentGenreID] = useState(null)
     const [genrePlaylists, setGenrePlaylists] = useState([])
     const [songList, setSongList] = useState([])
     const [playingTrack, setPlayingTrack] = useState()
@@ -25,6 +25,9 @@ export default function Dashboard({ accessToken }) {
         setCurrentGenreID(id)
     }
 
+    useEffect(() =>{
+
+    })
     useEffect(() => {
         if(currentGenreID === ""){
             axios.get(`https://api.spotify.com/v1/me/playlists?limit=20`, {
@@ -125,7 +128,7 @@ export default function Dashboard({ accessToken }) {
                     }
                 </div>
                 <div className="player-container">
-                    {playingTrack ? <Player accessToken={accessToken} trackUri={playingTrack} /> : null}
+                    {playingTrack ? <Player accessToken={accessToken} trackUri={playingTrack} songList={songList}/> : null}
                 </div>
             </div>
         )

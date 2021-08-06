@@ -1,5 +1,5 @@
 import React from 'react';
-import './PlaylistRender.css'
+import '../Styling/PlaylistRender.css'
 
 function PlaylistRender({ playlist:{id, name, tracks, images}, handlePlaylistClick }) {
     let image = ''

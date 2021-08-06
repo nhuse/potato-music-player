@@ -1,5 +1,5 @@
 import SongRender from './SongRender'
-import './SongRender.css'
+import '../Styling/SongRender.css'
 
 export default function SongListContainer({ songList, chooseTrack }){
     return(

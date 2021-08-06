@@ -1,4 +1,4 @@
-import './SongRender.css'
+import '../Styling/SongRender.css'
 
 export default function SongRender({ song, chooseTrack }) {
     const { track } = song;

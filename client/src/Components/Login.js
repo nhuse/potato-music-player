@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
-import './Login.css'
-import SpotifyLogo from './spotify-logo.png'
+import '../Styling/Login.css'
+import SpotifyLogo from '../Images/spotify-logo.png'
 
 const client_ID = "d464d95ff32b4e2aa6de17a36668212d" //public
 const redirect_URI = "http://localhost:3000/dashboard"

@@ -1,6 +1,6 @@
 import React from 'react';
 import PlaylistRender from './PlaylistRender';
-import './PlaylistContainer.css'
+import '../Styling/PlaylistContainer.css'
 
 function PlaylistContainer({ playlists, handlePlaylistClick }) {
     return (

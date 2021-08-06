@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import './NavBar.css'
-import potato from './potato.png'
+import '../Styling/NavBar.css'
+import potato from '../Images/potato.png'
 
 const linkStyles = {
   width: "100px",
