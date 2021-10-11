@@ -3,16 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from './Login';
 import Dashboard from './Dashboard'
 import Navbar from './NavBar';
-import {useHistory, Route, Switch, Link, Redirect} from 'react-router-dom'
+import { Route, Switch, Redirect} from 'react-router-dom'
 import React, {useEffect, useState} from 'react';
 
 const params = new URLSearchParams(window.location.hash.substr(1));
 const accessToken = params.get("access_token")
 
-console.log({accessToken})
-
 function App() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accessTokenState, setAccessToken] = useState()
   useEffect(() => {
     if(accessToken){

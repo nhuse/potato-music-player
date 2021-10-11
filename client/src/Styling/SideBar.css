@@ -10,19 +10,6 @@
     overflow: auto;
 }
 
-/* .genre-wrapper {
-    height: 100%;
-    left: 50%;
-    right: auto;
-    text-align: center;
-    -webkit-transform: translate(-50%, 0);
-    -o-transform: translate(-50%, 0);
-    transform: translate(-50%, 0);
-    padding-left: 15px;
-    border-radius: 10px;
-    margin-top: 125px;
-} */
-
 .genre-ul-title {
     color: rgba(255,255,255,.87);
     text-align: center;
@@ -35,6 +22,7 @@
 }
 
 .genre-li-container {
+    cursor: pointer;
     margin-top: 5px;
     align-self: center;
     display: grid;
@@ -60,11 +48,13 @@
 }
 
 .recent-img {
-    width: 40px;
-    height: auto;
+    width: 55px;
+    height: 55px;
 }
 
 .recently-played-li-container{
+    cursor: pointer;
+    height: 70px;
     margin-top: 5px;
     display: flex;
     flex-direction: row;

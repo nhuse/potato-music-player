@@ -7,7 +7,6 @@ export default function SideBar({ accessToken, handleGenreChange, recentlyPlayed
     const [genreList, setGenreList] = useState(null)
     const [userImg, setUserImg] = useState('')
 
-    console.log(recentlyPlayedTrack)
 
     useEffect(() => {
         if(accessToken) {

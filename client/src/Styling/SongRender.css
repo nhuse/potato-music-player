@@ -4,6 +4,7 @@
 }
 
 .song-li-container {
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     height: auto;

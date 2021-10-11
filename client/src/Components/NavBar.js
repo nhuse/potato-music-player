@@ -12,7 +12,7 @@ const linkStyles = {
   color: "rgba(255,255,255,.87)",
 };
 
-function Navbar({ accessToken, setAccessToken, params }) {
+function Navbar({ accessToken, setAccessToken }) {
   const history = useHistory();
 
   function handleLogout() {
