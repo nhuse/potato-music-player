@@ -2,14 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Styling/index.css';
 import App from './Components/App';
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { HashRouter, Route} from 'react-router-dom'
 
 ReactDOM.render(
-  <Router>
-    <React.StrictMode>
+  <HashRouter basename="https://nhuse.github.io/potato-music-player/">
       <Route path="/" component={App} />
-    </React.StrictMode>
-  </Router>
-  ,
+  </HashRouter>,
   document.getElementById('root')
 );
