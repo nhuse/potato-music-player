@@ -62,11 +62,9 @@ export default function Dashboard({ accessToken }) {
         })
         .then(resp => {
             let filteredList = resp.data.items.filter(song => !song.is_local)
-            console.log(filteredList)
             let uriList = filteredList.map(song => {
                 return song.track.uri
             })
-            console.log(uriList)
             setSongList(filteredList)
             setSongURIs(uriList)
         })

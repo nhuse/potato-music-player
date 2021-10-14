@@ -7,8 +7,6 @@ export default function Player({ accessToken, trackUri, songURIs, offset }) {
     const [play, setPlay] = useState(false)
 
     useEffect(() => {
-        console.log(trackUri)
-        console.log(offset)
         setPlay(true)
     }, [trackUri])
     
