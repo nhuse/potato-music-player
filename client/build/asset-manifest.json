@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/potato-music-player/static/css/main.8de2e871.chunk.css",
-    "main.js": "/potato-music-player/static/js/main.a9571258.chunk.js",
-    "main.js.map": "/potato-music-player/static/js/main.a9571258.chunk.js.map",
+    "main.js": "/potato-music-player/static/js/main.c8964784.chunk.js",
+    "main.js.map": "/potato-music-player/static/js/main.c8964784.chunk.js.map",
     "runtime-main.js": "/potato-music-player/static/js/runtime-main.430732fd.js",
     "runtime-main.js.map": "/potato-music-player/static/js/runtime-main.430732fd.js.map",
     "static/css/2.4be38407.chunk.css": "/potato-music-player/static/css/2.4be38407.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.4be38407.chunk.css",
     "static/js/2.e5f1f36b.chunk.js",
     "static/css/main.8de2e871.chunk.css",
-    "static/js/main.a9571258.chunk.js"
+    "static/js/main.c8964784.chunk.js"
   ]
 }
