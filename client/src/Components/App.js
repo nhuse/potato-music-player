@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/login">
           <Login />
         </Route>
-        <Route path="/dashboard">
+        <Route exact path="/dashboard">
           <Dashboard accessToken={accessTokenState} />
         </Route>
       </Switch>
