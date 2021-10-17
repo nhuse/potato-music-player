@@ -3,7 +3,7 @@ import '../Styling/SideBar.css'
 import axios from 'axios'
 import CDImage from '../Images/cd.png'
 
-export default function SideBar({ accessToken, handleGenreChange, recentlyPlayedTrack, chooseTrack }) {
+export default function SideBar({ accessToken, handleGenreChange, recentlyPlayedTrack, chooseTrack, setClickedRecentlyPlayed }) {
     const [genreList, setGenreList] = useState(null)
     const [userImg, setUserImg] = useState('')
 
@@ -56,9 +56,10 @@ export default function SideBar({ accessToken, handleGenreChange, recentlyPlayed
                 <h3>Recently Played</h3>
                 <ul className="recently-played-ul">
                     
-                    {recentlyPlayedTrack.map(mostRecent => {
+                    {recentlyPlayedTrack.map((mostRecent) => {
                         return (
                         <li key={mostRecent.track.id} className="recently-played-li-container"  onClick={() => {
+                            setClickedRecentlyPlayed(true)
                             chooseTrack(mostRecent.track.uri, mostRecent)
                         }}>
                             <img src={mostRecent.track.album.images[0].length === 0 ? 

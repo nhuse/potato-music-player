@@ -1,7 +1,7 @@
 import SongRender from './SongRender'
 import '../Styling/SongRender.css'
 
-export default function SongListContainer({ songList, chooseTrack }){
+export default function SongListContainer({ songList, chooseTrack, setClickedRecentlyPlayed }){
     return(
         <>
             <ul className="song-ul">
@@ -9,7 +9,7 @@ export default function SongListContainer({ songList, chooseTrack }){
                     if(song.is_local) {
                         return;
                     }else {
-                        return <SongRender key={song.track.id} song={song} index={index} chooseTrack={chooseTrack} />
+                        return <SongRender key={song.track.id} song={song} index={index} chooseTrack={chooseTrack} setClickedRecentlyPlayed={setClickedRecentlyPlayed} />
                     }
                 })}
             </ul>

@@ -16,6 +16,7 @@ export default function Dashboard({ accessToken }) {
     const [playingTrack, setPlayingTrack] = useState()
     const [recentlyPlayedTrack, setRecentlyPlayedTrack] = useState([])
     const [offset, setOffset] = useState(0)
+    const [clickedRecentlyPlayed, setClickedRecentlyPlayed] = useState(false)
     
     function handleGenreChange(id) {
         setCurrentGenreID(id)
@@ -111,17 +112,20 @@ export default function Dashboard({ accessToken }) {
         return (
             <div className="dashboard">
                 <aside className="side-bar">
-                    <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} recentlyPlayedTrack={recentlyPlayedTrack} chooseTrack={chooseTrack}/>
+                    <SideBar accessToken={accessToken} handleGenreChange={handleGenreChange} recentlyPlayedTrack={recentlyPlayedTrack} chooseTrack={chooseTrack} 
+                    setClickedRecentlyPlayed={setClickedRecentlyPlayed} />
                 </aside>
                 <div className="playlist-song-container">
                 {songList.length === 0 ? 
                     <PlaylistFetch accessToken={accessToken} genrePlaylists={genrePlaylists} handlePlaylistClick={handlePlaylistClick} />
                     :
-                    <SongListContainer songList={songList} chooseTrack={chooseTrack} />
+                    <SongListContainer songList={songList} chooseTrack={chooseTrack} setClickedRecentlyPlayed={setClickedRecentlyPlayed} />
                     }
                 </div>
                 <div className="player-container">
-                    {playingTrack ? <Player accessToken={accessToken} trackUri={playingTrack} offset={offset} songURIs={songURIs} /> : null}
+                    {playingTrack ? 
+                    <Player accessToken={accessToken} trackUri={playingTrack} offset={offset} songURIs={songURIs} clickedRecentlyPlayed={clickedRecentlyPlayed} />
+                    : null}
                 </div>
             </div>
         )

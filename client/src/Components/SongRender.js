@@ -1,6 +1,6 @@
 import '../Styling/SongRender.css'
 
-export default function SongRender({ song, chooseTrack, index }) {
+export default function SongRender({ song, chooseTrack, index, setClickedRecentlyPlayed }) {
     const { track } = song;
     let img = ''
 
@@ -16,6 +16,7 @@ export default function SongRender({ song, chooseTrack, index }) {
 
     function handleClick() {
         chooseTrack(track.uri, song, index)
+        setClickedRecentlyPlayed(false)
     }
 
     track.album.images.length == 0 ? 
