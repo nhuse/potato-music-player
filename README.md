@@ -22,5 +22,8 @@ account by logging in.
 5. Open web browser of choice and go to localhost:3000
 6. Log in to Spotify and enjoy your tunes!
 
+### Deployed Version
+https://potato-music-player.vercel.app
+
 ### Credits
 Eli Robbins, Tara Kelly, and Nathan Huse.
